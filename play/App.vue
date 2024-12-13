@@ -1,6 +1,5 @@
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-import test from "./test.js";
 
 export default {
   components: {
@@ -10,9 +9,6 @@ export default {
     return {
       text: "",
     };
-  },
-  mounted() {
-    this.text = test();
   },
 };
 </script>
