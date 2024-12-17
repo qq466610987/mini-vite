@@ -47,6 +47,9 @@ importers:
       '@types/koa':
         specifier: ^2.15.0
         version: 2.15.0
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
       koa:
         specifier: ^2.15.3
         version: 2.15.3
