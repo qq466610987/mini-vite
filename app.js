@@ -11,7 +11,6 @@ import serveStatic from 'serve-static'
 import * as WebSocket from 'ws'
 import chokidar from 'chokidar'
 
-
 // 将 import.meta.url（文件的 URL）转换为文件路径
 const __filename = fileURLToPath(import.meta.url)
 // 获取当前文件所在的目录路径

@@ -4,21 +4,29 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "private": true,
+  "bin": {
+    "mini-vite": "bin/vite.js"
+  },
   "scripts": {
-    "dev": "node ./app.js",
+    "dev": "node ./bin/vite.js",
+    "build": "pnpm --filter @mini-vite/vite build",
+    "build:watch": "pnpm --filter @mini-vite/vite build --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@vue/compiler-sfc": "3.0.0-rc.10",
+    "chokidar": "^3.5.3",
     "connect": "3.7.0",
     "es-module-lexer": "0.10.5",
     "esbuild": "0.24.0",
     "magic-string": "0.25.7",
+    "mini-vite": "workspace:*",
     "serve-static": "^1.16.2",
+    "tsx": "^4.19.2",
     "vue": "3.0.0-rc.10",
-    "ws": "^8.18.0",
-    "chokidar": "^3.5.3"
+    "ws": "^8.18.0"
   }
 }

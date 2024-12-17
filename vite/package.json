@@ -1,0 +1,23 @@
+{
+  "name": "@mini-vite/vite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "type": "module",
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "dev": "node ./dist/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/koa": "^2.15.0",
+    "koa": "^2.15.3",
+    "mini-vite": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.2"
+  }
+}
