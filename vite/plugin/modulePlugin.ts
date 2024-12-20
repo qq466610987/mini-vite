@@ -6,42 +6,45 @@ import fs from 'fs'
 import path from 'path'
 import { buildSync } from 'esbuild'
 // 处理裸导入问题
-const parseBareImport = async (js: string) => {
+export const parseBareImport = async (js: string) => {
   await init;
   let parseResult = parseModule(js);
   let s = new MagicString(js);
   // 遍历导入语句
   parseResult[0].forEach((item) => {
-    // 不是裸导入则替换
+    // 裸导入 eg: import { createApp } from 'vue'
+    // 添加 /@module/ 前缀,以及 ?import 后缀(标识是js文件中import导入的)
     if (item.n[0] !== "." && item.n[0] !== "/") {
       s.overwrite(item.s, item.e, `/@module/${item.n}?import`);
     }
-    // else {
-    //   s.overwrite(item.s, item.e, `${item.n}?import`);
-    // }
+    // 相对导入 eg: import { createApp } from './app.js'
+    else {
+      s.overwrite(item.s, item.e, `${item.n}?import`);
+    }
   });
   return s.toString();
 };
 
 export const modulePlugin = (context: PluginContext) => {
-  context.app.use(async (ctx) => {
+  context.app.use(async (ctx, next) => {
+
     if (/\.js\??[^.]*$/.test(ctx.path)) {
       let js = fs.readFileSync(path.join(context.basePath, ctx.path), 'utf-8')
-      ctx.set('Content-Type', 'application/javascript')
-      ctx.status = 200
-      ctx.body = await parseBareImport(js)
+      let result = await parseBareImport(js)
+      ctx.type = 'application/javascript'
+      console.log(result)
+      ctx.body = result
       return
     }
     // 拦截/@module请求
     if (/^\/@module\//.test(ctx.path)) {
       let pkg = ctx.path.substring(
-        ctx.path.indexOf('/@module/') + 9,
-        ctx.path.indexOf('?import')
+        ctx.path.indexOf('/@module/') + 9
       )
       // 获取该模块的package.json
       let pkgJson = JSON.parse(
         fs.readFileSync(
-          path.join(context.basePath, "node_modules", pkg, "package.json"),
+          path.join(context.root, "node_modules", pkg, "package.json"),
           "utf8"
         )
       );
@@ -50,16 +53,16 @@ export const modulePlugin = (context: PluginContext) => {
       // 使用esbuild编译
       let outfile = path.join(`./esbuild/${pkg}.js`);
       buildSync({
-        entryPoints: [path.join(__dirname, "node_modules", pkg, entry)],
+        entryPoints: [path.join(context.root, "node_modules", pkg, entry)],
         format: "esm",
         bundle: true,
         outfile,
       });
       let js = fs.readFileSync(outfile, "utf8");
-      ctx.set('Content-Type', 'application/javascript');
-      ctx.status = 200;
+      ctx.type = 'application/javascript'
       ctx.body = js;
       return
     }
+    await next()
   })
 }

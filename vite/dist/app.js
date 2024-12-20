@@ -4,17 +4,26 @@ import path from 'path';
 const createServer = () => {
     const app = new koa();
     const context = {
-        root: process.cwd(),
+        root: path.resolve(process.cwd()),
         app,
-        basePath: path.resolve(process.cwd(), '../', 'play')
+        basePath: path.resolve(process.cwd(), 'play')
     };
     // 初始化插件
     plugins(context).forEach(plugin => plugin(context));
-    app.use((ctx) => {
-        ctx.body = 'Hello World';
+    // app.use(async (ctx, next) => {
+    //   await next()
+    //   if (!ctx.body) {
+    //     ctx.body = 'Hello World'
+    //   }
+    // })
+    // 添加错误处理
+    const server = app.listen(3000, () => {
+        console.log('Server started on port 3000');
+    }).on('error', (err) => {
+        console.log('Server error:', err);
+        server.close();
     });
-    app.listen(3000);
+    return server; // 返回服务器实例以便管理
 };
-createServer();
 export { createServer };
 //# sourceMappingURL=app.js.map

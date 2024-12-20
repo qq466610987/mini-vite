@@ -1,14 +1,10 @@
-<script>
-export default {
-  props: {
-    msg: String,
-  },
-  data() {
-    return {
-      count: 0,
-    };
-  },
-};
+<script setup>
+import { ref } from 'vue'
+
+const msg = ref('Hello World')
+const props = defineProps({
+  msg: String
+})
 </script>
 
 <template>
