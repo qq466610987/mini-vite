@@ -1,7 +1,8 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
 import { ref } from 'vue'
-const text = ref('')
+const text = ref('vite+vue')
+
 </script>
 <template>
   <div class="title">
@@ -10,9 +11,8 @@ const text = ref('')
   <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
+<style>
 .title {
   color: red;
 }
 </style>
-
