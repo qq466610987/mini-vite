@@ -19,13 +19,15 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "connect": "3.7.0",
+    "dotenv": "^16.4.7",
     "es-module-lexer": "0.10.5",
     "esbuild": "0.24.0",
     "magic-string": "0.25.7",
     "mini-vite": "workspace:*",
+    "minimist": "^1.2.8",
     "serve-static": "^1.16.2",
     "tsx": "^4.19.2",
-    "ws": "^8.18.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "ws": "^8.18.0"
   }
 }

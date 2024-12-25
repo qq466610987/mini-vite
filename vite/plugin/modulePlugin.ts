@@ -5,6 +5,8 @@ import type { PluginContext } from './index.js'
 import fs from 'fs'
 import path from 'path'
 import { buildSync } from 'esbuild'
+import { parseEnv } from '../utils/env.js'
+
 // 处理裸导入问题
 export const parseBareImport = async (js: string) => {
   await init;
@@ -31,6 +33,9 @@ export const modulePlugin = (context: PluginContext) => {
     if (/\.js\??[^.]*$/.test(ctx.path)) {
       let js = fs.readFileSync(path.join(context.basePath, ctx.path), 'utf-8')
       let result = await parseBareImport(js)
+      // 解析环境变量
+      parseEnv(result)
+      //end 
       ctx.type = 'application/javascript'
       console.log(result)
       ctx.body = result

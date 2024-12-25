@@ -14,6 +14,9 @@ importers:
       connect:
         specifier: 3.7.0
         version: 3.7.0
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       es-module-lexer:
         specifier: 0.10.5
         version: 0.10.5
@@ -26,6 +29,9 @@ importers:
       mini-vite:
         specifier: workspace:*
         version: 'link:'
+      minimist:
+        specifier: ^1.2.8
+        version: 1.2.8
       serve-static:
         specifier: ^1.16.2
         version: 1.16.2
@@ -636,6 +642,10 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
 
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
@@ -785,6 +795,9 @@ packages:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
     engines: {node: '>=4'}
     hasBin: true
+
+  minimist@1.2.8:
+    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
@@ -1385,6 +1398,8 @@ snapshots:
   detect-libc@1.0.3:
     optional: true
 
+  dotenv@16.4.7: {}
+
   ee-first@1.1.1: {}
 
   encodeurl@1.0.2: {}
@@ -1593,6 +1608,8 @@ snapshots:
       mime-db: 1.52.0
 
   mime@1.6.0: {}
+
+  minimist@1.2.8: {}
 
   ms@2.0.0: {}
 

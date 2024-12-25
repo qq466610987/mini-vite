@@ -1,12 +1,18 @@
 import koa from 'koa';
 import { plugins } from './plugin/index.js';
 import path from 'path';
-const createServer = () => {
+import { loadEnv } from './utils/env.js';
+const createServer = (options = {}) => {
+    // 加载环境变量
+    const env = loadEnv(options.env || 'development', path.resolve(process.cwd(), 'play'));
+    console.log(env);
+    console.log(options);
     const app = new koa();
     const context = {
         root: path.resolve(process.cwd()),
         app,
-        basePath: path.resolve(process.cwd(), 'play')
+        basePath: path.resolve(process.cwd(), 'play'),
+        env: options.env || 'development'
     };
     // 初始化插件
     plugins(context).forEach(plugin => plugin(context));
