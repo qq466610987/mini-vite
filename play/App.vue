@@ -1,14 +1,23 @@
-<script setup>
+<script>
 import HelloWorld from "./components/HelloWorld.vue";
 import { ref } from 'vue'
-const text = ref('vite+vue')
 
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  setup() {
+    const text = ref('vite+vue')
+    return { text }
+  }
+}
 </script>
 <template>
   <div class="title">
     {{ text }}
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld msg="Hello World Component" />
 </template>
 
 <style>

@@ -173,7 +173,6 @@ app.use(async (req, res, next) => {
     }
     code += `\nexport default __script`;
 
-
     res.setHeader("Content-Type", typeAlias.js);
     res.statusCode = 200;
     res.end(code);
