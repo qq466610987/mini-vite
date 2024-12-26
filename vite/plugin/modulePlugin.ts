@@ -5,7 +5,7 @@ import type { PluginContext } from './index.js'
 import fs from 'fs'
 import path from 'path'
 import { buildSync } from 'esbuild'
-import { parseEnv } from '../utils/env.js'
+import { handleEnv } from '../utils/env.js'
 
 // 处理裸导入问题
 export const parseBareImport = async (js: string) => {
@@ -14,9 +14,12 @@ export const parseBareImport = async (js: string) => {
   let s = new MagicString(js);
   // 遍历导入语句
   parseResult[0].forEach((item) => {
+    if (!item.n) {
+      return
+    }
     // 裸导入 eg: import { createApp } from 'vue'
     // 添加 /@module/ 前缀,以及 ?import 后缀(标识是js文件中import导入的)
-    if (item.n[0] !== "." && item.n[0] !== "/") {
+    if (item.n && item.n[0] !== "." && item.n[0] !== "/") {
       s.overwrite(item.s, item.e, `/@module/${item.n}?import`);
     }
     // 相对导入 eg: import { createApp } from './app.js'
@@ -29,15 +32,13 @@ export const parseBareImport = async (js: string) => {
 
 export const modulePlugin = (context: PluginContext) => {
   context.app.use(async (ctx, next) => {
-
     if (/\.js\??[^.]*$/.test(ctx.path)) {
       let js = fs.readFileSync(path.join(context.basePath, ctx.path), 'utf-8')
-      let result = await parseBareImport(js)
       // 解析环境变量
-      parseEnv(result)
+      js = handleEnv(js, context.env)
       //end 
+      let result = await parseBareImport(js)
       ctx.type = 'application/javascript'
-      console.log(result)
       ctx.body = result
       return
     }

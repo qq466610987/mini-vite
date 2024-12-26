@@ -8,7 +8,8 @@ export interface PluginContext {
   root: string // 项目根目录
   app: Koa
   basePath: string // play目录
-  env: string // 环境变量
+  env: Record<string, string> // 环境变量
+  envModel: String
 }
 
 export const plugins = (ctx: PluginContext) => {

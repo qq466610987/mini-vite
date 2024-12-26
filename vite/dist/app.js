@@ -12,7 +12,8 @@ const createServer = (options = {}) => {
         root: path.resolve(process.cwd()),
         app,
         basePath: path.resolve(process.cwd(), 'play'),
-        env: options.env || 'development'
+        envModel: options.env || 'development',
+        env: env || {}
     };
     // 初始化插件
     plugins(context).forEach(plugin => plugin(context));
